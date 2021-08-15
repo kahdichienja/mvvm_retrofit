@@ -7,6 +7,8 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
@@ -18,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.insets.statusBarsPadding
+import com.kchienja.testi.model.RepositoriesModel
 import com.kchienja.testi.model.ResultData
 import com.kchienja.testi.ui.theme.TestiTheme
 import com.kchienja.testi.viewmodels.MainActivityViewModel
@@ -72,4 +75,22 @@ fun ReposData(){
 
     }
 
+}
+
+@Composable
+fun RepoList(repositoriesModel: RepositoriesModel){
+    LazyColumn{
+        if (!repositoriesModel.isNullOrEmpty()){
+            itemsIndexed(repositoriesModel){index, item ->  ReposListItem(item = item)}
+        }
+    }
+}
+
+@Composable
+fun ReposListItem(item: RepositoriesModel.RepositoriesModelItem){
+    
+    Card() {
+        Text(text = "${item.fullName}")
+    }
+    
 }
