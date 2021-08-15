@@ -98,21 +98,28 @@ fun ReposListItem(modifier: Modifier = Modifier, item: RepositoriesModel.Reposit
             .fillMaxWidth()
             .wrapContentHeight()
             .padding(10.dp)) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Image(
-                painter = rememberImagePainter(item.owner?.avatarUrl),
-                contentDescription = null,
-                modifier = Modifier.size(size = 20.dp)
-            )
-            Spacer(modifier = Modifier.size(height = 0.dp, width = 5.dp))
-            Text(text = item.fullName?.substringBefore(delimiter = "/").toString(), fontSize = 16.sp)
+        Column(
+            horizontalAlignment = Alignment.Start,
+            modifier = Modifier
+                .padding(10.dp)
+        ){
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painter = rememberImagePainter(item.owner?.avatarUrl),
+                    contentDescription = null,
+                    modifier = Modifier.size(size = 20.dp)
+                )
+                Spacer(modifier = Modifier.size(height = 0.dp, width = 5.dp))
+                Text(text = item.fullName?.substringBefore(delimiter = "/").toString(), fontSize = 16.sp)
+            }
+            Spacer(modifier = Modifier.height(5.dp))
+            Text(text = item.name.toString(), fontSize = 18.sp, fontWeight = FontWeight.Bold)
+            Spacer(modifier = Modifier.height(5.dp))
+            Text(text = item.description.toString(), fontSize = 14.sp)
         }
-        Spacer(modifier = Modifier.height(5.dp))
-        Text(text = item.name.toString(), fontSize = 18.sp, fontWeight = FontWeight.Bold)
-        Spacer(modifier = Modifier.height(5.dp))
-        Text(text = item.description.toString(), fontSize = 14.sp)
+
     }
     
 }
