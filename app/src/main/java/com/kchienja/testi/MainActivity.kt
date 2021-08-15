@@ -4,21 +4,24 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.rememberImagePainter
 import com.google.accompanist.insets.statusBarsPadding
 import com.kchienja.testi.model.RepositoriesModel
 import com.kchienja.testi.model.ResultData
@@ -88,10 +91,28 @@ fun RepoList(repositoriesModel: RepositoriesModel?){
 }
 
 @Composable
-fun ReposListItem(item: RepositoriesModel.RepositoriesModelItem){
+fun ReposListItem(modifier: Modifier = Modifier, item: RepositoriesModel.RepositoriesModelItem){
     
-    Card {
-        Text(text = "${item.fullName}")
+    Card(shape = RoundedCornerShape(5.dp),
+        modifier = modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .padding(10.dp)) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                painter = rememberImagePainter(item.owner?.avatarUrl),
+                contentDescription = null,
+                modifier = Modifier.size(size = 20.dp)
+            )
+            Spacer(modifier = Modifier.size(height = 0.dp, width = 5.dp))
+            Text(text = item.fullName?.substringBefore(delimiter = "/").toString(), fontSize = 16.sp)
+        }
+        Spacer(modifier = Modifier.height(5.dp))
+        Text(text = item.name.toString(), fontSize = 18.sp, fontWeight = FontWeight.Bold)
+        Spacer(modifier = Modifier.height(5.dp))
+        Text(text = item.description.toString(), fontSize = 14.sp)
     }
     
 }
