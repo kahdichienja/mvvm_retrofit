@@ -61,8 +61,9 @@ fun ReposData(){
                 val data = resultData.data
 
                 Log.d("DATA::", data.toString())
-                Text(text = "Data Loaded")
+//                Text(text = "Data Loaded")
 
+                RepoList(repositoriesModel = data)
             }
             is ResultData.Failed -> {
                 Text(text = "Failed To Load Data")
@@ -78,7 +79,7 @@ fun ReposData(){
 }
 
 @Composable
-fun RepoList(repositoriesModel: RepositoriesModel){
+fun RepoList(repositoriesModel: RepositoriesModel?){
     LazyColumn{
         if (!repositoriesModel.isNullOrEmpty()){
             itemsIndexed(repositoriesModel){index, item ->  ReposListItem(item = item)}
@@ -89,7 +90,7 @@ fun RepoList(repositoriesModel: RepositoriesModel){
 @Composable
 fun ReposListItem(item: RepositoriesModel.RepositoriesModelItem){
     
-    Card() {
+    Card {
         Text(text = "${item.fullName}")
     }
     
