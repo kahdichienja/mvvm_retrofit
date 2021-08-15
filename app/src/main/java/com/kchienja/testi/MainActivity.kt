@@ -1,6 +1,7 @@
 package com.kchienja.testi
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
@@ -54,7 +55,11 @@ fun ReposData(){
                 )
             }
             is ResultData.Success -> {
+                val data = resultData.data
+
+                Log.d("DATA::", data.toString())
                 Text(text = "Data Loaded")
+
             }
             is ResultData.Failed -> {
                 Text(text = "Failed To Load Data")
